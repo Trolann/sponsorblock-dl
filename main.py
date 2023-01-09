@@ -2,6 +2,7 @@ from sb_log import logging  # Standard logging
 from pytube import YouTube  # To download videos
 from moviepy.editor import *  # To stitch videos together
 import sponsorblock as sb  # For block times
+import os
 # Must also ensure FFMPEG is installed
 
 
@@ -93,6 +94,7 @@ def run():
     """
     # TODO: Allow for playlists
     # TODO: Add Dockerfile, update ENV
+    # TODO: replit support
     url = input('What YouTube video do you want downloaded and SponsorBlocked?: ')
     #url = "https://www.youtube.com/watch?v=kypGBUTTTHs"
     location, title = download_video(url)
@@ -101,4 +103,8 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    try:
+        if os.environ["LOCKED"]:
+            pass
+    except:
+        run()
