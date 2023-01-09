@@ -18,6 +18,8 @@ class VideoInfo:
     filename: str = ""
     block_list: list = field(default_factory=lambda : [])
     length: int = 0
+    perf_counter_start: int = 0
+    processing_done: bool = False
 
 
 VIDEO = VideoInfo()
@@ -31,7 +33,7 @@ def get_video_title(url) -> bool:
         return False
 
 
-def download_video(url) -> None:
+async def download_video(url) -> None:
     """
     Downloads the given video URL and returns the file location and filename
     :param url:
@@ -110,6 +112,7 @@ def process_video() -> None:
 
     ad_free.write_videofile(f'ad_free_{VIDEO.filename}', audio=True, fps=30, audio_codec='aac')
     logging.info(f'Processing done for {VIDEO.title}')
+    VIDEO.processing_done = True
 
 
 def run():
